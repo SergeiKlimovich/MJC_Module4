@@ -24,7 +24,6 @@ public class ApplicationConfig {
     @Resource
     private final Environment environment;
 
-
     public ApplicationConfig(Environment environment) {
         this.environment = environment;
     }
@@ -60,6 +59,5 @@ public class ApplicationConfig {
     public PlatformTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory.getObject());
     }
-
 
 }

@@ -1,10 +1,11 @@
 package com.epam.esm.web.controller;
 
 import com.epam.esm.persistence.entity.Role;
+import com.epam.esm.service.dto.OrderDto;
 import com.epam.esm.service.dto.UserDto;
+import com.epam.esm.service.service.OrderService;
 import com.epam.esm.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,10 +23,12 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController extends HATEOASController<UserDto> {
     private final UserService userService;
+    private final OrderService orderService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, OrderService orderService) {
         this.userService = userService;
+        this.orderService = orderService;
     }
 
     /**
@@ -80,4 +83,19 @@ public class UserController extends HATEOASController<UserDto> {
         Role role = userService.getUserRole(id);
         return role.name();
     }
+
+    /**
+     * Get List of all Orders that matches parameter userID
+     *
+     * @param id user id we want to view the list of his orders
+     * @return List of OrderDto objects with Order data.
+     */
+    @GetMapping("/{id}/orders")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public List<OrderDto> readUserOrdersByUserId(@PathVariable int id) {
+        List<OrderDto> orderDtoList = orderService.readOrdersByUserID(id);
+        addLinksToListOrder(orderDtoList);
+        return orderDtoList;
+    }
+
 }

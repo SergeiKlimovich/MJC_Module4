@@ -3,9 +3,7 @@ package com.epam.esm.service;
 import com.epam.esm.persistence.entity.User;
 import com.epam.esm.persistence.repository.impl.UserRepositoryImpl;
 import com.epam.esm.service.dto.UserDto;
-import com.epam.esm.service.exception.NotExistEntityException;
 import com.epam.esm.service.service.impl.UserServiceImpl;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)

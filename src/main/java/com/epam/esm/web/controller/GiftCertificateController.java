@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
@@ -70,7 +69,8 @@ public class GiftCertificateController extends HATEOASController<GiftCertificate
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     public GiftCertificateDto create(@Valid @RequestBody GiftCertificateDto giftCertificateDto) {
-        return service.create(giftCertificateDto);
+
+        return addLinkToCertificate(service.create(giftCertificateDto));
     }
 
     /**

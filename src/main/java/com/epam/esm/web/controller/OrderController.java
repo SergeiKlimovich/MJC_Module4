@@ -45,20 +45,6 @@ public class OrderController extends HATEOASController<OrderDto> {
     }
 
     /**
-     * Get List of all Orders that matches parameter userID
-     *
-     * @param userID user id we want to view the list of his orders
-     * @return List of {@link OrderDto} objects with Order data.
-     */
-    @GetMapping(params = "user")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    public List<OrderDto> readByUserId(@RequestParam(value = "user") int userID) {
-        List<OrderDto> orderDtoList = orderService.readOrdersByUserID(userID);
-        addLinksToListOrder(orderDtoList);
-        return orderDtoList;
-    }
-
-    /**
      * Get Order that matches parameter orderID
      *
      * @param orderID The order number that we want to receive.
@@ -89,7 +75,7 @@ public class OrderController extends HATEOASController<OrderDto> {
      * @param id of the order we delete
      */
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/order/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> removeOrder(@PathVariable int id) {
         orderService.delete(id);

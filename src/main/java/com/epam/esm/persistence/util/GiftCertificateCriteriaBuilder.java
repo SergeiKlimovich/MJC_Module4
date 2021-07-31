@@ -4,7 +4,6 @@ import com.epam.esm.persistence.entity.GiftCertificate;
 import com.epam.esm.persistence.entity.Tag;
 import com.epam.esm.service.exception.IncorrectParameterValueException;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
@@ -26,6 +25,15 @@ public class GiftCertificateCriteriaBuilder {
         Root<GiftCertificate> giftCertificateRoot = criteriaQuery.from(GiftCertificate.class);
 
         List<Predicate> predicateList = new ArrayList<>();
+
+        String fullSearch = giftCertificateQueryParameter.getFullSearch();
+        if (Objects.nonNull(fullSearch)) {
+
+            Predicate predicate = criteriaBuilder
+                    .or(criteriaBuilder.like(giftCertificateRoot.get("name"), SYMBOL + fullSearch + SYMBOL),
+                            criteriaBuilder.like(giftCertificateRoot.get("description"), SYMBOL + fullSearch + SYMBOL));
+            predicateList.add(predicate);
+        }
 
         String name = giftCertificateQueryParameter.getName();
         if (Objects.nonNull(name)) {
@@ -50,7 +58,6 @@ public class GiftCertificateCriteriaBuilder {
                 return criteriaQuery;
             }
             tags.forEach(tag -> predicateList.add(criteriaBuilder.isMember(tag, giftCertificateRoot.get("tags"))));
-
         }
 
         criteriaQuery.select(giftCertificateRoot).where(predicateList.toArray(new Predicate[0]));
