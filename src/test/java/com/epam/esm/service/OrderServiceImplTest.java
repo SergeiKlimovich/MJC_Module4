@@ -1,6 +1,5 @@
 package com.epam.esm.service;
 
-import com.epam.esm.persistence.entity.GiftCertificate;
 import com.epam.esm.persistence.entity.Order;
 import com.epam.esm.persistence.entity.User;
 import com.epam.esm.persistence.repository.impl.GiftCertificateRepositoryImpl;
@@ -10,7 +9,6 @@ import com.epam.esm.service.dto.OrderDto;
 import com.epam.esm.service.dto.UserDto;
 import com.epam.esm.service.exception.NotExistEntityException;
 import com.epam.esm.service.service.impl.OrderServiceImpl;
-import com.epam.esm.service.util.CreateParameterOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

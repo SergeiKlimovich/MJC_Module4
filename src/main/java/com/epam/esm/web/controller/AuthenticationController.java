@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,7 +58,8 @@ public class AuthenticationController {
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/registration")
-    public UserDto register(@RequestBody RegistrationUserDto registrationUserDto) {
+    public UserDto register(@Valid @RequestBody RegistrationUserDto registrationUserDto) {
+
         return userService.create(registrationUserDto);
     }
 }

@@ -6,12 +6,11 @@ import com.epam.esm.service.dto.TagDto;
 import com.epam.esm.service.dto.UserDto;
 import org.springframework.hateoas.PagedModel;
 
-
 import java.util.Collection;
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 public abstract class HATEOASController<T> {
     protected Collection<T> addPagination(List<T> entities, int page, int size, long countOfEntities) {
@@ -33,7 +32,7 @@ public abstract class HATEOASController<T> {
     }
 
     public static UserDto addLinksToUser(UserDto user) {
-        user.add(linkTo(methodOn(OrderController.class).readByUserId(user.getId())).withRel("orders"));
+        user.add(linkTo(methodOn(UserController.class).readUserOrdersByUserId(user.getId())).withRel("orders"));
         return user;
     }
 
@@ -65,12 +64,18 @@ public abstract class HATEOASController<T> {
 
     public static void addLinksToListOrder(List<OrderDto> orderDtoList) {
         for (OrderDto orderDto : orderDtoList) {
-            orderDto.add(linkTo(methodOn(OrderController.class).readByUserId(orderDto.getUser().getId())).withRel("orders"));
+            orderDto.add(linkTo(methodOn(UserController.class).readUserOrdersByUserId(orderDto.getUser().getId())).withRel("orders"));
             addLinksToListCertificate(orderDto.getGiftCertificateList());
 
             UserDto user = orderDto.getUser();
             user.add(linkTo(methodOn(UserController.class).read(user.getId())).withRel("user"));
         }
     }
+
+    public static GiftCertificateDto addLinkToCertificate(GiftCertificateDto giftCertificateDto) {
+        giftCertificateDto.add(linkTo(methodOn(GiftCertificateController.class).read(giftCertificateDto.getId())).withSelfRel());
+        return giftCertificateDto;
+    }
+
 
 }

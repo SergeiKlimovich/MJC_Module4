@@ -9,7 +9,6 @@ import com.epam.esm.service.exception.NotExistEntityException;
 import com.epam.esm.service.service.UserService;
 import com.epam.esm.service.util.Page;
 import com.epam.esm.service.util.SecurityValidator;
-import com.epam.esm.service.util.UserValidator;
 import com.epam.esm.web.exception.UserAlreadyExistException;
 import com.epam.esm.web.security.JwtUser;
 import org.modelmapper.ModelMapper;
@@ -62,13 +61,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDto create(RegistrationUserDto registrationUserDto) {
-        UserValidator.validateRegistrationUser(registrationUserDto);
         Optional<User> user = userRepository.readByEmail(registrationUserDto.getEmail());
 
         if (user.isPresent()) {
             throw new UserAlreadyExistException("A user with email = " + registrationUserDto.getEmail() + " already exists");
         }
         User newUser = new User();
+
         newUser.setName(registrationUserDto.getName());
         newUser.setEmail(registrationUserDto.getEmail());
         newUser.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));

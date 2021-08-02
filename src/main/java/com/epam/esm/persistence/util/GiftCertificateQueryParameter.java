@@ -11,18 +11,23 @@ import java.util.List;
 public class GiftCertificateQueryParameter {
     private String name;
     private String description;
+    private String fullSearch;
     private List<String> tagNamesList;
 
     private SortType sortType;
     private OrderType orderType;
 
-    public GiftCertificateQueryParameter(String name, String description, List<String> tagNamesList, String sortType, String orderType) {
+    public GiftCertificateQueryParameter(String name, String description, String fullSearch, List<String> tagNamesList, String sortType, String orderType) {
         if (!StringUtils.isEmpty(name)) {
             setName(name);
         }
         if (!StringUtils.isEmpty(description)) {
             setDescription(description);
         }
+        if (!StringUtils.isEmpty(fullSearch)) {
+            setFullSearch(fullSearch);
+        }
+
         if (tagNamesList != null && !tagNamesList.isEmpty()) {
             this.tagNamesList = tagNamesList;
         }
@@ -51,7 +56,7 @@ public class GiftCertificateQueryParameter {
     }
 
     public boolean isEmpty() {
-        return name == null && description == null && tagNamesList == null && sortType == null && orderType == null;
+        return name == null && fullSearch == null && description == null && tagNamesList == null && sortType == null && orderType == null;
     }
 
 }

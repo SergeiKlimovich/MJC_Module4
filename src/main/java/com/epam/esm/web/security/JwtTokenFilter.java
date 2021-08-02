@@ -22,7 +22,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final HandlerExceptionResolver resolver;
 
     @Autowired
-    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider, @Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver) {
+    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider,
+                          @Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.resolver = resolver;
     }
