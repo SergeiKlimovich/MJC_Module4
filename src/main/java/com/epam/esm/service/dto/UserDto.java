@@ -15,7 +15,6 @@ public class UserDto extends RepresentationModel<UserDto> {
     private int id;
     private String name;
     private String email;
-    private String token;
     @JsonIgnore
     private List<OrderDto> orderList;
 }

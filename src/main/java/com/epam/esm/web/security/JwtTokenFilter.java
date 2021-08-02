@@ -1,5 +1,8 @@
 package com.epam.esm.web.security;
 
+import com.epam.esm.service.exception.NotExistEntityException;
+import io.jsonwebtoken.JwtException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;

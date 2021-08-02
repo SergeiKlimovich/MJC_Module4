@@ -108,8 +108,10 @@ public class UserServiceImpl implements UserService {
             User user = loadUser.get();
             return new JwtUser(
                     user.getId(),
+                    user.getName(),
                     user.getEmail(),
                     user.getPassword(),
+                    user.getRole(),
                     mapRolesToAuthorities(user.getRole())
             );
         }

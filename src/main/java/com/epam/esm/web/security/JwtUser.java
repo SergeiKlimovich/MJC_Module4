@@ -1,5 +1,6 @@
 package com.epam.esm.web.security;
 
+import com.epam.esm.persistence.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,8 +13,10 @@ import java.util.Collection;
 public class JwtUser implements UserDetails {
 
     private int id;
+    private String name;
     private String email;
     private String password;
+    private Role role;
     private Collection<? extends GrantedAuthority> authorities;
 
     @Override
