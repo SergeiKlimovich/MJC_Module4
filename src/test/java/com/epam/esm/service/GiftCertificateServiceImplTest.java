@@ -133,14 +133,14 @@ class GiftCertificateServiceImplTest {
         assertThrows(NotExistEntityException.class, () -> giftCertificateService.read(NON_EXISTING_ID));
     }
 
-    @Test
+   /* @Test
     @DisplayName("When creating a certificate with invalid data, an exception is thrown InvalidDataException")
     void create_invalidData_thrownInvalidDataException_test() {
         //given
         GiftCertificateDto nonValidCertificateDto = new GiftCertificateDto();
         //then
         assertThrows(InvalidDataException.class, () -> giftCertificateService.create(nonValidCertificateDto));
-    }
+    }*/
 
     @Test
     @DisplayName("Successful certificate creation, an order with a number is expected.")
@@ -155,7 +155,7 @@ class GiftCertificateServiceImplTest {
 
     }
 
-    @Test
+   /* @Test
     @DisplayName("Invalid update data, expected InvalidDataException")
     void update_invalidData_thrownInvalidDataException_test() {
         //given
@@ -163,7 +163,7 @@ class GiftCertificateServiceImplTest {
         invalidCertificateDto.setDuration(-12);
         //then
         assertThrows(InvalidDataException.class, () -> giftCertificateService.update(invalidCertificateDto));
-    }
+    }*/
 
     @Test
     @DisplayName("A Certificate with such an ID does not exist, an appropriate exception must be thrown")

@@ -1,7 +1,10 @@
 package com.epam.esm.web.security;
 
+import com.epam.esm.web.exception.InvalidTokenException;
+import com.epam.esm.web.exception.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +33,23 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String token = jwtTokenProvider.resolveToken(request);
+        try {
+            if (token != null && jwtTokenProvider.validateToken(token)) {
+                Authentication authentication = jwtTokenProvider.getAuthentication(token);
+                if (authentication != null) {
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            }
+        } catch (AuthenticationException e) {
+            SecurityContextHolder.clearContext();
+            resolver.resolveException(request, response, null, e);
+        }
+        filterChain.doFilter(request, response);
+    }
+
+    /*@Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String token = jwtTokenProvider.resolveToken(request);
 
@@ -44,5 +64,5 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         } catch (AuthenticationException e) {
             resolver.resolveException(request, response, null, e);
         }
-    }
+    }*/
 }

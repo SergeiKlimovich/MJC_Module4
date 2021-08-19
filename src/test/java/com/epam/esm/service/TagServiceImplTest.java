@@ -84,11 +84,11 @@ public class TagServiceImplTest {
         assertThrows(NotExistEntityException.class, () -> tagServiceImpl.read(2));
     }
 
-    @Test
+    /*@Test
     @DisplayName("When creating a tag with invalid data, an exception is thrown InvalidDataException")
     void create_invalidNullName_thrownInvalidDataException_test() {
         assertThrows(InvalidDataException.class, () -> tagServiceImpl.create(new TagDto()));
-    }
+    }*/
 
     @Test
     @DisplayName("When trying to create a tag with a name that already exists, an exception is thrown DuplicateNameException")
